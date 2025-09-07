@@ -31,21 +31,21 @@ type MyEncoder interface {
 func (j *JSONData) Encoding() error {
 	data, err := os.ReadFile(j.FileInput)
 	if err != nil {
-		fmt.Printf(err.Error())
+		fmt.Printf("ошибка при чтении %s", err.Error())
 		return err
 
 	}
 	if err := json.Unmarshal(data, &j.DockerCompose); err != nil {
-		fmt.Printf(err.Error())
+		fmt.Printf("ошибка при десериализации %s", err.Error())
 		return err
 	}
 	yamlData, err := yaml.Marshal(&j.DockerCompose)
 	if err != nil {
-		fmt.Printf(err.Error())
+		fmt.Printf("ошибка при сериализации %s", err.Error())
 		return err
 	}
 	if err := os.WriteFile(j.FileOutput, yamlData, 0644); err != nil {
-		fmt.Printf(err.Error())
+		fmt.Printf("ошибка при записи %s", err.Error())
 		return err
 	}
 	return nil
@@ -55,22 +55,22 @@ func (j *JSONData) Encoding() error {
 func (y *YAMLData) Encoding() error {
 	data, err := os.ReadFile(y.FileInput)
 	if err != nil {
-		fmt.Printf(err.Error())
+		fmt.Printf("ошибка при чтении %s", err.Error())
 		return err
 
 	}
 	if err := yaml.Unmarshal(data, &y.DockerCompose); err != nil {
-		fmt.Printf(err.Error())
+		fmt.Printf("ошибка при десериализации %s", err.Error())
 		return err
 	}
 	jsonData, err := json.Marshal(&y.DockerCompose)
 	if err != nil {
-		fmt.Printf(err.Error())
+		fmt.Printf("ошибка при сериализации %s", err.Error())
 		return err
 
 	}
 	if err := os.WriteFile(y.FileOutput, jsonData, 0644); err != nil {
-		fmt.Printf(err.Error())
+		fmt.Printf("ошибка при записи %s", err.Error())
 		return err
 
 	}
